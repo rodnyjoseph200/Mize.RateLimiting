@@ -10,7 +10,7 @@ public class RateLimitServiceTests
     [TestMethod]
     public void Constructor_NullStrategy_ThrowsArgumentNullException()
     {
-        Action act = () => new RateLimitService<int>(null!, _ => Task.CompletedTask);
+        var act = () => new RateLimitService<int>(null!, _ => Task.CompletedTask);
         _ = act.Should().Throw<ArgumentNullException>().WithParameterName("rateLimitStrategyService");
     }
 
@@ -18,7 +18,7 @@ public class RateLimitServiceTests
     public void Constructor_NullAction_ThrowsArgumentNullException()
     {
         var strategyMock = new Mock<IRateLimitStategyService>();
-        Action act = () => new RateLimitService<int>(strategyMock.Object, null!);
+        var act = () => new RateLimitService<int>(strategyMock.Object, null!);
 
         _ = act.Should().Throw<ArgumentNullException>().WithParameterName("action");
     }
@@ -50,7 +50,7 @@ public class RateLimitServiceTests
         var strategyMock = new Mock<IRateLimitStategyService>();
 
         _ = strategyMock.SetupSequence(s => s.Execute())
-            .ReturnsAsync(TimeSpan.Zero)
+            .ReturnsAsync(TimeSpan.FromSeconds(1))
             .ReturnsAsync((TimeSpan?)null);
 
         var calls = new List<string>();

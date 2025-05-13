@@ -10,7 +10,7 @@ public class SlidingWindowStrategyServiceTests
     [TestMethod]
     public void Constructor_NullRateLimits_ThrowsArgumentNullException()
     {
-        Action act = () => new SlidingWindowStrategyService(null!);
+        var act = () => new SlidingWindowStrategyService(null!);
         _ = act.Should().Throw<ArgumentNullException>().WithParameterName("rateLimits");
     }
 
@@ -42,7 +42,7 @@ public class SlidingWindowStrategyServiceTests
     {
         var small = RateLimit.Create(1, TimeSpan.FromSeconds(5));
         var large = RateLimit.Create(1, TimeSpan.FromSeconds(10));
-        var service = new SlidingWindowStrategyService(new[] { small, large });
+        var service = new SlidingWindowStrategyService([small, large]);
 
         _ = await service.Execute();
         var wait = await service.Execute();
