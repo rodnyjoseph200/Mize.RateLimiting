@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{D4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateLimiting", "src\RateLimiting.csproj", "{37FC4BBB-CEB8-47BD-8266-6CCF51EE0967}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateLimiting.UnitTests", "tests\RateLimiting.UnitTests\RateLimiting.UnitTests.csproj", "{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateLimiting.Examples", "examples\RateLimiting.Examples\RateLimiting.Examples.csproj", "{008FA716-8F16-46E5-A824-8D5D5D5937FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,11 +24,21 @@ Global
 		{37FC4BBB-CEB8-47BD-8266-6CCF51EE0967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37FC4BBB-CEB8-47BD-8266-6CCF51EE0967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37FC4BBB-CEB8-47BD-8266-6CCF51EE0967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008FA716-8F16-46E5-A824-8D5D5D5937FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008FA716-8F16-46E5-A824-8D5D5D5937FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008FA716-8F16-46E5-A824-8D5D5D5937FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008FA716-8F16-46E5-A824-8D5D5D5937FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37FC4BBB-CEB8-47BD-8266-6CCF51EE0967} = {F753F70B-686B-4CE3-B995-20138E3FF04A}
+		{3E2D6AA9-44E4-45F9-A842-395CD90F5FA9} = {742245F4-5691-40E4-9ADB-B94A9C75BD8F}
+		{008FA716-8F16-46E5-A824-8D5D5D5937FA} = {D4C35912-0579-4B0D-B664-7E96F5C2B5D4}
 	EndGlobalSection
 EndGlobal
