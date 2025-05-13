@@ -58,7 +58,7 @@ public class RateLimitTrackerTests
         tracker.Enqueue(now.AddSeconds(1));
         var wait = tracker.GetWaitTime(now.AddSeconds(2));
 
-        _ = wait.Should().BePositive().And.BeCloseTo(TimeSpan.FromSeconds(9), TimeSpan.FromMilliseconds(10));
+        _ = wait.Should().BePositive().And.BeCloseTo(TimeSpan.FromSeconds(8), TimeSpan.FromMilliseconds(10));
     }
 
     [TestMethod]

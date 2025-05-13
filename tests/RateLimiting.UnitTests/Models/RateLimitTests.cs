@@ -29,7 +29,7 @@ public class RateLimitTests
         Action act = () => RateLimit.Create(invalidCount, window);
 
         _ = act.Should().Throw<ArgumentOutOfRangeException>()
-            .WithParameterName("Count");
+            .WithParameterName("count");
     }
 
     [DataTestMethod]
@@ -43,6 +43,6 @@ public class RateLimitTests
         Action act = () => RateLimit.Create(count, invalidWindow);
 
         _ = act.Should().Throw<ArgumentOutOfRangeException>()
-            .WithParameterName("Window");
+            .WithParameterName("window");
     }
 }
