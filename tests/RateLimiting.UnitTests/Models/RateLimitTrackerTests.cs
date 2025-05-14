@@ -8,6 +8,16 @@ namespace RateLimiting.UnitTests.Models;
 public class RateLimitTrackerTests
 {
     [TestMethod]
+    public void Enqueue_DefaultDate_ThrowsArgumentOutOfRangeException()
+    {
+        var limit = RateLimit.Create(1, TimeSpan.FromSeconds(1));
+        var tracker = RateLimitTracker.Create(limit);
+        Action act = () => tracker.Enqueue(default);
+
+        _ = act.Should().Throw<ArgumentOutOfRangeException>().WithParameterName("dateTime");
+    }
+
+    [TestMethod]
     public void Enqueue_WhenUnderLimit_DoesNotThrow()
     {
         var limit = RateLimit.Create(2, TimeSpan.FromSeconds(10));
@@ -34,6 +44,16 @@ public class RateLimitTrackerTests
         Action act = () => tracker.Enqueue(now.AddSeconds(1));
 
         _ = act.Should().Throw<InvalidOperationException>().WithMessage("Queue is full");
+    }
+
+    [TestMethod]
+    public void GetWaitTime_DefaultDate_ThrowsArgumentOutOfRangeException()
+    {
+        var limit = RateLimit.Create(1, TimeSpan.FromSeconds(1));
+        var tracker = RateLimitTracker.Create(limit);
+        Action act = () => tracker.GetWaitTime(default);
+
+        _ = act.Should().Throw<ArgumentOutOfRangeException>().WithParameterName("currentDateTime");
     }
 
     [TestMethod]
@@ -72,6 +92,16 @@ public class RateLimitTrackerTests
         var wait = tracker.GetWaitTime(now.AddSeconds(2));
 
         _ = wait.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void DequeueExpiredEntries_DefaultDate_ThrowsArgumentOutOfRangeException()
+    {
+        var limit = RateLimit.Create(1, TimeSpan.FromSeconds(1));
+        var tracker = RateLimitTracker.Create(limit);
+        Action act = () => tracker.DequeueExpiredEntries(default);
+
+        _ = act.Should().Throw<ArgumentOutOfRangeException>().WithParameterName("currentDateTime");
     }
 
     [TestMethod]

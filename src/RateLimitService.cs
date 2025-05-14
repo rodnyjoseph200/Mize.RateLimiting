@@ -5,6 +5,7 @@ public class RateLimitService<TArg> : IRateLimitService<TArg>
     // IRateLimitStategyService enables you to use any implementation (sliding window, absolute window)
     private readonly IRateLimitStategyService _rateLimitStategyService;
     private readonly Func<TArg, Task> _action;
+    private readonly SemaphoreSlim _mutex = new(1);
 
     public RateLimitService(IRateLimitStategyService rateLimitStrategyService, Func<TArg, Task> action)
     {
@@ -14,16 +15,23 @@ public class RateLimitService<TArg> : IRateLimitService<TArg>
 
     public async Task Perform(TArg arg)
     {
-        while (true)
+        await _mutex.WaitAsync();
+        try
         {
-            var wait = await _rateLimitStategyService.Execute();
+            while (true)
+            {
+                var wait = _rateLimitStategyService.Execute();
+                if (!wait.HasValue)
+                    break;
 
-            if (!wait.HasValue)
-                break;
-
-            // can wait, log, and/or throw an exception
-            await Task.Delay(wait.Value);
-            continue;
+                // can wait, log, and/or throw an exception
+                await Task.Delay(wait.Value);
+                continue;
+            }
+        }
+        finally
+        {
+            _ = _mutex.Release();
         }
 
         await _action(arg);

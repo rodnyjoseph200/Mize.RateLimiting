@@ -28,7 +28,7 @@ public class RateLimitServiceTests
     {
         var strategyMock = new Mock<IRateLimitStategyService>();
 
-        _ = strategyMock.Setup(s => s.Execute()).ReturnsAsync((TimeSpan?)null);
+        _ = strategyMock.Setup(s => s.Execute()).Returns((TimeSpan?)null);
 
         var calls = new List<int>();
         Task action(int x)
@@ -50,8 +50,8 @@ public class RateLimitServiceTests
         var strategyMock = new Mock<IRateLimitStategyService>();
 
         _ = strategyMock.SetupSequence(s => s.Execute())
-            .ReturnsAsync(TimeSpan.FromSeconds(1))
-            .ReturnsAsync((TimeSpan?)null);
+            .Returns(TimeSpan.FromSeconds(1))
+            .Returns((TimeSpan?)null);
 
         var calls = new List<string>();
         Task action(string s)
