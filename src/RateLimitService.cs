@@ -31,7 +31,7 @@ public class RateLimitService<TArg> : IRateLimitService<TArg>
         }
         finally
         {
-            _mutex.Release();
+            _ = _mutex.Release();
         }
 
         await _action(arg);

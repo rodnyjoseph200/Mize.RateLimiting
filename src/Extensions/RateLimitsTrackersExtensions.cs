@@ -1,4 +1,3 @@
-using System;
 using RateLimiting.Models;
 
 namespace RateLimiting.Extensions;
@@ -24,5 +23,4 @@ public static class RateLimitsTrackersExtensions
         var waits = GetWaitTimes(trackers, currentDateTime);
         return waits.Length is 0 ? null : waits.Max();
     }
-
 }
