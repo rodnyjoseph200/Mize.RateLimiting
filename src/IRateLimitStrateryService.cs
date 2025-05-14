@@ -2,5 +2,5 @@
 
 public interface IRateLimitStategyService
 {
-    Task<TimeSpan?> Execute();
+    TimeSpan? Execute();
 }
