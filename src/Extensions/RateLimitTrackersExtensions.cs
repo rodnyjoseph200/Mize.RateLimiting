@@ -2,7 +2,7 @@ using RateLimiting.Models;
 
 namespace RateLimiting.Extensions;
 
-public static class RateLimitsTrackersExtensions
+public static class RateLimitTrackersExtensions
 {
     public static TimeSpan[] GetWaitTimes(this IReadOnlyCollection<RateLimitTracker> trackers, DateTimeOffset currentDateTime)
     {
