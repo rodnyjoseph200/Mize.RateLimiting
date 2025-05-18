@@ -15,38 +15,38 @@ public class SlidingWindowStrategyServiceTests
     }
 
     [TestMethod]
-    public async Task Execute_WhenUnderLimit_ReturnsNull()
+    public void Execute_WhenUnderLimit_ReturnsNull()
     {
         var limits = new[] { RateLimit.Create(2, TimeSpan.FromSeconds(10)) };
         var service = new SlidingWindowStrategyService(limits);
 
-        var result = await service.Execute();
+        var result = service.Execute();
 
         _ = result.Should().BeNull();
     }
 
     [TestMethod]
-    public async Task Execute_WhenAtLimit_ReturnsPositiveWaitTime()
+    public void Execute_WhenAtLimit_ReturnsPositiveWaitTime()
     {
         var limits = new[] { RateLimit.Create(1, TimeSpan.FromSeconds(10)) };
         var service = new SlidingWindowStrategyService(limits);
 
-        _ = await service.Execute();
-        var wait = await service.Execute();
+        _ = service.Execute();
+        var wait = service.Execute();
 
         _ = wait.Should().BePositive().And.BeCloseTo(TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(50));
     }
 
     [TestMethod]
-    public async Task Execute_WhenMultipleLimits_FirstWaitIsBasedOnSmallestWindow()
+    public void Execute_WhenMultipleLimits_FirstWaitIsBasedOnBiggestWindow()
     {
         var small = RateLimit.Create(1, TimeSpan.FromSeconds(5));
         var large = RateLimit.Create(1, TimeSpan.FromSeconds(10));
-        var service = new SlidingWindowStrategyService([small, large]);
+        var service = new SlidingWindowStrategyService(new[] { small, large });
 
-        _ = await service.Execute();
-        var wait = await service.Execute();
+        _ = service.Execute();
+        var wait = service.Execute();
 
-        _ = wait.Should().BePositive().And.BeCloseTo(TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(50));
+        _ = wait.Should().BePositive().And.BeCloseTo(TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(50));
     }
 }

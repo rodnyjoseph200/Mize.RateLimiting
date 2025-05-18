@@ -19,12 +19,16 @@ public record RateLimitTracker
 
     public void DequeueExpiredEntries(DateTimeOffset currentDateTime)
     {
+        ArgumentOutOfRangeException.ThrowIfEqual(currentDateTime, default);
+
         while (_queue.TryPeek(out var dateTimeFromQueue) && dateTimeFromQueue <= (currentDateTime - Limit.Window))
             _ = _queue.TryDequeue(out _);
     }
 
     public TimeSpan? GetWaitTime(DateTimeOffset currentDateTime)
     {
+        ArgumentOutOfRangeException.ThrowIfEqual(currentDateTime, default);
+
         if (_queue.Count >= Limit.Count)
         {
             var oldest = _queue.Peek();
@@ -38,6 +42,8 @@ public record RateLimitTracker
 
     public void Enqueue(DateTimeOffset dateTime)
     {
+        ArgumentOutOfRangeException.ThrowIfEqual(dateTime, default);
+
         if (_queue.Count >= Limit.Count)
             throw new InvalidOperationException("Queue is full");
 
